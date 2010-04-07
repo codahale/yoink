@@ -1,0 +1,5 @@
+* Small code refactoring.
+* Added a mild smattering of documentation.
+* Added `Atom`, a Scala-y atomic reference.
+* Added `MutablePersistentHashMap` and `MutablePersistentTreeMap`, which are
+  backed by atomic references to Clojure's persistent, immutable maps.
