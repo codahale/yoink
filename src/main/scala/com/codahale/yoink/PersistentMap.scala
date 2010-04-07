@@ -4,7 +4,6 @@ import collection.immutable.MapLike
 import collection.generic.{CanBuildFrom, ImmutableMapFactory}
 import clojure.lang.{APersistentMap, PersistentTreeMap => CPersistentTreeMap, PersistentHashMap => CPersistentHashMap}
 
-@serializable
 trait PersistentMap[A, +B] extends Map[A, B] {
   val underlying: APersistentMap
 
@@ -22,26 +21,24 @@ trait PersistentMap[A, +B] extends Map[A, B] {
     underlying.without(key).asInstanceOf[APersistentMap]
 }
 
-@serializable
 object PersistentTreeMap extends ImmutableMapFactory[PersistentTreeMap] {
   implicit def canBuildFrom[A, B]: CanBuildFrom[Coll, (A, B), PersistentTreeMap[A, B]] = new MapCanBuildFrom[A, B]
   def empty[A, B]: PersistentTreeMap[A, B] = new PersistentTreeMap(CPersistentTreeMap.EMPTY)
 }
 
-@serializable
+@serializable @SerialVersionUID(1L)
 class PersistentTreeMap[A, +B](val underlying: APersistentMap) extends PersistentMap[A,B] with MapLike[A, B, PersistentTreeMap[A, B]] {
   override def empty = PersistentTreeMap.empty[A, B]
   override def + [B1 >: B] (kv: (A, B1)) = new PersistentTreeMap[A, B1](wrappedAdd(kv))
   override def - (key: A) = new PersistentTreeMap[A, B](wrappedRemove(key))
 }
 
-@serializable
 object PersistentHashMap extends ImmutableMapFactory[PersistentHashMap] {
   implicit def canBuildFrom[A, B]: CanBuildFrom[Coll, (A, B), PersistentHashMap[A, B]] = new MapCanBuildFrom[A, B]
   def empty[A, B]: PersistentHashMap[A, B] = new PersistentHashMap(CPersistentHashMap.EMPTY)
 }
 
-@serializable
+@serializable @SerialVersionUID(1L)
 class PersistentHashMap[A, +B](val underlying: APersistentMap) extends PersistentMap[A,B] with MapLike[A, B, PersistentHashMap[A, B]] {
   override def empty = PersistentHashMap.empty[A, B]
   override def + [B1 >: B] (kv: (A, B1)) = new PersistentHashMap[A, B1](wrappedAdd(kv))
