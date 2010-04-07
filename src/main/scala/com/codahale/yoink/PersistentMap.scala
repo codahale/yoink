@@ -26,6 +26,9 @@ object PersistentTreeMap extends ImmutableMapFactory[PersistentTreeMap] {
   def empty[A, B]: PersistentTreeMap[A, B] = new PersistentTreeMap(CPersistentTreeMap.EMPTY)
 }
 
+/**
+ * An immutable, persistent map, backed by a Clojure persistent tree map.
+ */
 @serializable @SerialVersionUID(1L)
 class PersistentTreeMap[A, +B](val underlying: APersistentMap) extends PersistentMap[A,B] with MapLike[A, B, PersistentTreeMap[A, B]] {
   override def empty = PersistentTreeMap.empty[A, B]
@@ -38,6 +41,9 @@ object PersistentHashMap extends ImmutableMapFactory[PersistentHashMap] {
   def empty[A, B]: PersistentHashMap[A, B] = new PersistentHashMap(CPersistentHashMap.EMPTY)
 }
 
+/**
+ * An immutable, persistent map, backed by a Clojure persistent hash map.
+ */
 @serializable @SerialVersionUID(1L)
 class PersistentHashMap[A, +B](val underlying: APersistentMap) extends PersistentMap[A,B] with MapLike[A, B, PersistentHashMap[A, B]] {
   override def empty = PersistentHashMap.empty[A, B]
