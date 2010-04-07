@@ -2,16 +2,7 @@ package com.codahale.yoink
 
 import collection.immutable.MapLike
 import collection.generic.{CanBuildFrom, ImmutableMapFactory}
-import clojure.lang.{IMapEntry, APersistentMap, PersistentTreeMap => CPersistentTreeMap, PersistentHashMap => CPersistentHashMap}
-
-@serializable
-class PersistentMapIterator[A, +B](underlying: java.util.Iterator[_]) extends Iterator[(A, B)] {
-  def next() = {
-    val entry = underlying.next.asInstanceOf[IMapEntry]
-    (entry.key.asInstanceOf[A], entry.`val`.asInstanceOf[B])
-  }
-  def hasNext = underlying.hasNext
-}
+import clojure.lang.{APersistentMap, PersistentTreeMap => CPersistentTreeMap, PersistentHashMap => CPersistentHashMap}
 
 @serializable
 trait PersistentMap[A, +B] extends Map[A, B] {
