@@ -20,7 +20,7 @@ How To Use
 **First**, specify Yoink as a dependency:
 
     val codaRepo = "Coda Hale's Repository" at "http://repo.codahale.com/"
-    val fig = "com.codahale" %% "yoink" % "1.0.0" withSources()
+    val yoink = "com.codahale" %% "yoink" % "1.0.0" withSources()
 
 **Second**, use some persistent, immutable maps:
     
