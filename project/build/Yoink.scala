@@ -23,5 +23,9 @@ class Yoink(info: sbt.ProjectInfo) extends sbt.DefaultProject(info) with postero
    */
   val scalaSnapshots = "Scala Snapshots" at "http://scala-tools.org/repo-snapshots/"
   val clojure = "org.clojure" % "clojure" % "1.1.0" withSources()  
-  val scalaTest = "org.scalatest" % "scalatest" % "1.0.1-for-scala-2.8.0.Beta1-with-test-interfaces-0.3-SNAPSHOT" % "test" withSources() intransitive()
+  val scalaTest = buildScalaVersion match {
+    case "2.8.0.Beta1" => "org.scalatest" % "scalatest" % "1.0.1-for-scala-2.8.0.Beta1-with-test-interfaces-0.3-SNAPSHOT" % "test" withSources() intransitive()
+    case "2.8.0.RC2" => "org.scalatest" % "scalatest" % "1.2-for-scala-2.8.0.RC2-SNAPSHOT" % "test" withSources() intransitive()
+    case unknown => error("no known scalatest impl for %s".format(unknown))
+  }
 }
